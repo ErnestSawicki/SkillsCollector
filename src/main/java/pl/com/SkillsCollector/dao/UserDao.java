@@ -17,7 +17,7 @@ public class UserDao {
     }
 
     public User get(Long id){
-        return emf.createEntityManager().find(User.class, id);
+        return em.find(User.class, id);
     }
 
     public void save(User user){
