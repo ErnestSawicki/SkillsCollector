@@ -15,5 +15,4 @@ public class EncodingFilter extends HttpFilter {
         req.setCharacterEncoding("UTF-8");
         res.setCharacterEncoding("UTF-8");
     }
-    
 }

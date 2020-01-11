@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Table(name = "sources")
 @Entity(name = "Source")
-public class Skill implements Serializable {
+public class Source implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
