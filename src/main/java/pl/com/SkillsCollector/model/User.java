@@ -34,6 +34,15 @@ public class User implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "source_id")})
     private Set<Source> sources = new HashSet<>();
 
+    public User() {}
+
+    public User(String firstName, String lastName, String password, String username) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.username = username;
+    }
+
     public Long getId() {
         return id;
     }
