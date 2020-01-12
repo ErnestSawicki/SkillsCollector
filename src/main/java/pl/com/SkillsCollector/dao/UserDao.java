@@ -32,8 +32,23 @@ public class UserDao {
     public void update(User user){
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.persist(user);
+        em.merge(user);
         em.getTransaction().commit();
+    }
+
+    public void addSource(User user, Source source) {
+        Long userId = user.getId();
+        Long sourceId = source.getId();
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            User merged = em.find(User.class, userId);
+            merged.getSources().add(em.merge(source));
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 
     public void delete(User user){

@@ -83,6 +83,14 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    public Set<Source> getSources() {
+        return sources;
+    }
+
+    public void setSources(Set<Source> sources) {
+        this.sources = sources;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

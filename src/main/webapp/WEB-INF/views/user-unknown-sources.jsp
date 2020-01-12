@@ -21,6 +21,7 @@
         <th>Source name</th>
         <th>Source description</th>
         <th>Source skills</th>
+        <th>Confirmation</th>>
     </tr>
     <%
         int count = 0;
@@ -35,6 +36,7 @@
                     ${skills.name},
                 </c:forEach>
             </td>
+            <td><a href="/sources/confirm?sourceId=${sourcesUnknown.id}">Confirm knowledge</a></td>
         </tr>
     </c:forEach>
 </table>

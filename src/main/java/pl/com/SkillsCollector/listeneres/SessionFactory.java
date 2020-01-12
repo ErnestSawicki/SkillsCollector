@@ -14,6 +14,4 @@ public class SessionFactory implements ServletContextListener {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pl.com.SkillsCollector");
         sce.getServletContext().setAttribute("session_factory", emf);
     }
-
-
 }

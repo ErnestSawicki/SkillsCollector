@@ -12,33 +12,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-@WebServlet(urlPatterns = "/user/unknown-sources")
-public class UserUnknownSourcesServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/sources/confirm")
+public class ConfirmServlet extends HttpServlet {
 
+    private UserDao userDao;
     private SourceDao sourceDao;
     @Override
     public void init() throws ServletException {
+        userDao = new UserDao((EntityManagerFactory) getServletContext().getAttribute("session_factory"));
         sourceDao = new SourceDao((EntityManagerFactory)getServletContext().getAttribute("session_factory"));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long sourceId = Long.parseLong(req.getParameter("sourceId"));
+        Source source = sourceDao.get(sourceId);
+        System.out.println(source.toString());
         User user = (User)req.getSession().getAttribute("user");
-        List<Source> sourcesUnknown = sourceDao.sourceUnknownToUser(user);
-        System.out.println(sourcesUnknown);
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        req.setAttribute("sourcesUnknown", sourcesUnknown);
+//        user.getSources().add(source);
+//        User entity = userDao.get(user.getId());
+//        entity.getSources().add(source);
+//        userDao.update(entity);
+        userDao.addSource(user, source);
+
+
         req.getRequestDispatcher("/WEB-INF/views/user-unknown-sources.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
+
+
 }
