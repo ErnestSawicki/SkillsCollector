@@ -1,9 +1,11 @@
 package pl.com.SkillsCollector.dao;
 
 import pl.com.SkillsCollector.model.Source;
+import pl.com.SkillsCollector.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 public class SourceDao {
 
@@ -35,6 +37,13 @@ public class SourceDao {
         em.getTransaction().begin();
         em.remove(source);
         em.getTransaction().commit();
+    }
+
+    public List<Source> sourceUnknownToUser(User user){
+        List<Source> sourcesInDB = em.createQuery("select DISTINCT s from Source s JOIN FETCH s.skills",Source.class).getResultList();
+        List<Source> sourcesKnownToUser = new UserDao(emf).userSources(user);
+        sourcesInDB.removeAll(sourcesKnownToUser);
+        return sourcesInDB;
     }
 
 }

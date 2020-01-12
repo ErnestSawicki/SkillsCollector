@@ -23,7 +23,8 @@ public class AuthorizationFilter extends HttpFilter {
         } else {
             if (req.getSession().getAttribute("user") != null){
                 chain.doFilter(req, res);
-            } {
+            }
+            else {
                 res.sendError(401);
             }
         }
