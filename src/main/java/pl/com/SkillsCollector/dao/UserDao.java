@@ -1,5 +1,7 @@
 package pl.com.SkillsCollector.dao;
 
+import pl.com.SkillsCollector.model.Skill;
+import pl.com.SkillsCollector.model.Source;
 import pl.com.SkillsCollector.model.User;
 
 import javax.persistence.EntityManager;
@@ -61,6 +63,23 @@ public class UserDao {
         return em.createQuery("SELECT u from User u where u.username =: username AND u.password =: password", User.class)
                 .setParameter("username", username)
                 .setParameter("password", password)
+                .getResultList();
+    }
+
+    /*Select ss.skill_id
+    From users_known_sources us
+    Join sources_attached_skills ss
+    On ss.source_id = us.source_id
+    Where user_id = 1;*/
+
+    public List<Skill> userSkills(User user){
+
+        return em.createQuery("Select sk " +
+                "From Source so " +
+                "Join so.skills sk " +
+                "Join so.users u " +
+                "Where u.id =: userId", Skill.class)
+                .setParameter("userId", user.getId())
                 .getResultList();
     }
 

@@ -5,6 +5,7 @@ import pl.com.SkillsCollector.model.Skill;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 public class SkillDao {
 
@@ -37,4 +38,5 @@ public class SkillDao {
         em.remove(skill);
         em.getTransaction().commit();
     }
+
 }
