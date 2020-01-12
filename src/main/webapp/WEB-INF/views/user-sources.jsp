@@ -3,7 +3,7 @@
   Created by IntelliJ IDEA.
   User: dell
   Date: 2020-01-12
-  Time: 12:06
+  Time: 13:09
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page isELIgnored="false" %>
@@ -15,24 +15,30 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragments/header.jsp"/>
-<h1>User skills</h1>
-<table>
+<table border="true">
     <tr>
-        <td>Order number</td>
-        <td>Skill name</td>
-        <td>Skill value</td>
+        <th>Order number</th>
+        <th>Source name</th>
+        <th>Source description</th>
+        <th>Source skills</th>
     </tr>
     <%
         int count = 0;
     %>
-    <c:forEach items="${skills}" var="skill">
+    <c:forEach items="${sources}" var="source">
         <tr>
-            <td><%=++count %></td>
-            <td>${skill.key}</td>
-            <td>${skill.value}</td>
+            <td><%=++count%></td>
+            <td>${source.name}</td>
+            <td>${source.description}</td>
+            <td>
+                <c:forEach items="${source.skills}" var="skills">
+                ${skills.name},
+            </c:forEach>
+            </td>
         </tr>
     </c:forEach>
 </table>
+
 <jsp:include page="/WEB-INF/views/fragments/footer.jsp"/>
 </body>
 </html>

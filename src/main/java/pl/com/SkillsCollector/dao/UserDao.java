@@ -73,12 +73,20 @@ public class UserDao {
     Where user_id = 1;*/
 
     public List<Skill> userSkills(User user){
-
         return em.createQuery("Select sk " +
                 "From Source so " +
                 "Join so.skills sk " +
                 "Join so.users u " +
                 "Where u.id =: userId", Skill.class)
+                .setParameter("userId", user.getId())
+                .getResultList();
+    }
+
+    public List<Source> userSources(User user){
+        return em.createQuery("Select so " +
+                "From Source so " +
+                "Join so.users u " +
+                "Where u.id =: userId", Source.class)
                 .setParameter("userId", user.getId())
                 .getResultList();
     }
