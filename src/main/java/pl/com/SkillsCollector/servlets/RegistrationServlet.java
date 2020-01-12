@@ -34,7 +34,7 @@ public class RegistrationServlet extends HttpServlet {
         User user = new User(firstName, lastName, password, userName);
         if (userDao.isUsernameAvailable(userName)){
             userDao.save(user);
-            req.getRequestDispatcher("/WEB-INF/views/login.jsp");
+            resp.sendRedirect("/login");
         } else {
             req.setAttribute("error", "Username is taken");
             req.setAttribute("user", user);
